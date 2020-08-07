@@ -33,8 +33,10 @@ export default class ClassesController {
         .whereExists(function(){
             this.select('classes_shedule.*')
                 .from('classes_shedule')
-                .whereRaw('`classes_shedule`.`class_id` =`classes.id`')
+                .whereRaw('`classes_shedule`.`class_id` =`classes`.`id`')
                 .whereRaw('`classes_shedule`.`week_day` =??', [Number(week_day)])
+                .whereRaw('`classes_shedule`.`from` <= ??', [timeInMinutes])
+                .whereRaw('`classes_shedule`.`to` > ??', [timeInMinutes])
         })
         .where('classes.subject' , '=', subject)  
         .join('users', 'classes.user_id', '=', 'users.id')  
