@@ -62,7 +62,7 @@
          color:  var(--color-primary);
         }
     
-        .teacher-item footer button {
+        .teacher-item footer a {
             width: 20rem;
             height: 5.6rem;
             border: 0;
@@ -74,9 +74,10 @@
             cursor: pointer;
             background: var(--color-secundary);
             color: var(--color-button-text);
+            text-decoration: none;
         }
     
-         .teacher-item footer button:hover{
+         .teacher-item footer a:hover{
             background: var(--color-secundary-dark);
     
         }

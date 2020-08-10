@@ -2,35 +2,56 @@ import React from 'react'
 
 import whatsappIcon from '../../assets/images/icons/whatsapp.svg';
 import './styles.css'
+import api from '../../services/api';
 
-function TeacherItem (){
+
+export interface classItem {
+    avatar: string ,
+    bio: string,
+    cost: number,
+    id: number,
+    name: string,
+    subject: string,
+    whatsapp: string
+}
+ interface ClassItemProps {
+    classItem: classItem
+}
+
+const TeacherItem: React.FC<ClassItemProps> = ({classItem}) => {
+    function HandlerCreateConnection () {
+        api.post('connections', {
+            user_id : classItem.id
+        })
+    }
+
     return (
-
         <article className="teacher-item">
     <header>
-        <img src="https://avatars0.githubusercontent.com/u/64722377?s=460&u=e6f71cb5fdfe19f7730c15e363e642817e97db50&v=4"
-         alt=""/>
+        <img src={classItem.avatar}
+         alt={classItem.name}/>
          <div>
-             <strong>Rodrigo Martins</strong>
-             <span>Fisíca</span>
+             <strong>{classItem.name}</strong>
+             <span>{classItem.subject}</span>
          </div>
     </header>
 
     <p>
-        Ensusiasta das melhores tecnologias de quimica avançada.
-         <br /><br /> 
-        Apaixonado por explodir coisas em laboratorios e por mudar a vida das pessoas através de experiencias.
+        {classItem.bio}
     </p>
 
     <footer>
          <p>
              Preço/hora
-                 <strong>R$ 80,00</strong>
+                 <strong>R$ {classItem.cost}</strong>
          </p>
-         <button type="button">
+         <a 
+         onClick={HandlerCreateConnection}
+        target="_blank"
+         href={`https://wa.me/${classItem.whatsapp}`}>
              <img src={whatsappIcon} alt="whatsapp"/>
              Entrar em contato
-         </button>    
+         </a>    
      </footer> 
 </article>
 )
